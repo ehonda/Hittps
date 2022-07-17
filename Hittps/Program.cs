@@ -7,7 +7,7 @@ var app = builder.Build();
 
 app.UseHttpLogging();
 
-app.MapGet("/", () => Task.FromResult("hi"));
+app.MapGet("/messages", () => Task.FromResult(new { Message = "hi" }));
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
