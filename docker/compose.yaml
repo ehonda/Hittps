@@ -6,6 +6,14 @@ services:
       context: ..
       dockerfile: docker/Dockerfile-Hittps
     container_name: hittps
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      #- ASPNETCORE_Kestrel__Certificates__Default__Password=hittps
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/hittps.pem
+    volumes:
+      - /mnt/c/Users/dennis/source/repos/CSharp/Hittps/cert:/https:ro
+    #entrypoint: tail -f /dev/null
   
   cerenkov:
     build:
@@ -13,6 +21,8 @@ services:
       dockerfile: docker/Dockerfile-Cerenkov
     container_name: cerenkov
     entrypoint: /bin/sh -c /bin/compose_keep_alive
+    volumes:
+      - /mnt/c/Users/dennis/source/repos/CSharp/Hittps/cert:/https:ro
     depends_on:
       - hittps
 
