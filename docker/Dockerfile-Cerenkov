@@ -1,0 +1,16 @@
+FROM alpine:latest
+
+# Install packages
+RUN apk update
+RUN apk add bash
+RUN apk add curl
+RUN apk add jq
+
+# Setup bash aliases
+RUN echo "alias hi='curl -s hittps | jq'" > ~/.bashrc
+
+# Provide keep alive script to keep idle container running in compose context
+RUN echo 'trap "exit" SIGTERM; while true; do sleep 1; done' > /bin/compose_keep_alive
+RUN chmod +x /bin/compose_keep_alive
+
+ENTRYPOINT [ "/bin/bash" ]
