@@ -9,8 +9,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      #- ASPNETCORE_Kestrel__Certificates__Default__Password=hittps
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/hittps.pem
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=hittps
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/test2/cert.pfx
     volumes:
       - /mnt/c/Users/dennis/source/repos/CSharp/Hittps/cert:/https:ro
     #entrypoint: tail -f /dev/null
