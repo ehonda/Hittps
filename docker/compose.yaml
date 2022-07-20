@@ -14,6 +14,14 @@ services:
     volumes:
       - /mnt/c/Users/dennis/source/repos/CSharp/Hittps/cert:/https:ro
     #entrypoint: tail -f /dev/null
+
+  consumer:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile-Consumer
+    container_name: consumer
+    depends_on:
+      - hittps
   
   cerenkov:
     build:
