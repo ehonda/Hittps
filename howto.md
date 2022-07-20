@@ -20,3 +20,16 @@
 * Trust cert
   * `cp /https/test2/cert.pem /usr/local/share/ca-certificates/`
   * `update-ca-certificates`
+
+## 3 Trust in debian
+
+* Candidates
+  * `cp /https/test2/cert.pem /usr/local/share/ca-certificates/ && update-ca-certificates` ❌
+  * `cp /https/test2/cert.pem /etc/ssl/certs/` ✅
+  * `cp /https/test2/cert.pem /etc/ssl/certs/ && update-ca-certificates` (✅)
+  * `cp /https/test2/cert.pem /etc/ssl/certs/cert.crt` ✅
+  * `cp /https/test2/cert.pem /etc/ssl/certs/cert.crt && update-ca-certificates` (✅)
+  * `cp /https/test2/cert.pem /usr/local/share/ca-certificates/cert.crt && update-ca-certificates` ✅
+
+* `.pem` or `.crt` does not matter if put in `/etc/ssl/certs`, also `update-ca-certificates` is not needed
+* Must be `.crt` if put in `/usr/local/share/ca-certificates`, `update-ca-certificates` is mandatory
