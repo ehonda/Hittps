@@ -1,4 +1,4 @@
 # TODO
 
-* Either trust `.pfx` cert in `alpine` or
-* See how to setup the app with `.pem` cert
+* Trust `Hittps` cert from `Consumer`
+* init container to set up certificates
