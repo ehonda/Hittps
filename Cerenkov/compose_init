@@ -1,0 +1,10 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+echo 'Establishing trust for hittps self signed certificate'
+cp /certificates/hittps.pem /usr/local/share/ca-certificates
+update-ca-certificates
+
+echo 'Running cerenkov in background'
+exec /bin/sh -c /bin/compose_keep_alive

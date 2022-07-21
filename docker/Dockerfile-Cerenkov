@@ -8,7 +8,12 @@ RUN apk add jq
 RUN apk add ca-certificates
 
 # Setup bash aliases
-RUN echo "alias hi='curl -s hittps/messages | jq'" > ~/.bashrc
+RUN echo "alias hi='curl -sL hittps/messages | jq'" > ~/.bashrc
+RUN echo "alias hittps='curl -s https://hittps/messages | jq'" >> ~/.bashrc
+
+# Provide init script for compose
+COPY ./Cerenkov/compose_init /bin
+RUN chmod +x /bin/compose_init
 
 # Provide keep alive script to keep idle container running in compose context
 RUN echo 'trap "exit" SIGTERM; while true; do sleep 1; done' > /bin/compose_keep_alive
