@@ -1,0 +1,10 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+echo 'Establishing trust for hittps self signed certificate'
+cp /certificates/hittps.pem /usr/local/share/ca-certificates/hittps.crt
+update-ca-certificates
+
+echo 'Starting consumer'
+exec dotnet Consumer.dll

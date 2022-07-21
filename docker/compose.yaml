@@ -1,6 +1,14 @@
 name: hittps
 
 services:
+  certificator:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile-Certificator
+    container_name: certificator
+    volumes:
+      - certificates:/certificates:rw
+
   hittps:
     build:
       context: ..
@@ -10,21 +18,24 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=hittps
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/test2/cert.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/certificates/hittps.pfx
     volumes:
-      - /mnt/c/Users/dennis/source/repos/CSharp/Hittps/cert:/https:ro
-    #entrypoint: tail -f /dev/null
+      - certificates:/certificates:ro
+    depends_on:
+      certificator:
+        condition: service_completed_successfully
 
   consumer:
     build:
       context: ..
       dockerfile: docker/Dockerfile-Consumer
     container_name: consumer
+    entrypoint: /bin/bash -c /bin/init
+    volumes:
+      - certificates:/certificates:ro
     depends_on:
       - hittps
-    volumes:
-      - /mnt/c/Users/dennis/source/repos/CSharp/Hittps/cert:/https:ro
-  
+
   cerenkov:
     build:
       context: ..
@@ -32,9 +43,12 @@ services:
     container_name: cerenkov
     entrypoint: /bin/sh -c /bin/compose_keep_alive
     volumes:
-      - /mnt/c/Users/dennis/source/repos/CSharp/Hittps/cert:/https:ro
+      - certificates:/certificates:ro
     depends_on:
       - hittps
 
 networks:
   hittps:
+
+volumes:
+  certificates:

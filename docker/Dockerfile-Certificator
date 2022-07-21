@@ -1,0 +1,12 @@
+FROM alpine:latest
+
+# Install packages
+RUN apk update
+RUN apk add bash
+RUN apk add openssl
+
+# Setup bash aliases
+COPY ./Certificator/make-certificate /bin/make-certificate
+RUN chmod +x /bin/make-certificate
+
+ENTRYPOINT [ "bin/bash", "-c","/bin/make-certificate" ]
