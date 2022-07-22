@@ -1,5 +1,6 @@
 # TODO
 
+* Use `--no-cache` for `apk add`
 * Trust `Hittps` cert from `Consumer` ✅
 * init container to set up certificates ✅
 * Make init container recreate invalid certificates (e.g. if expired)
