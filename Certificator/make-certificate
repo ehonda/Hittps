@@ -2,14 +2,22 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+cd /certificates
+
 # Check that certificate exists
-# TODO: Check that pem and pfx exist!
-if [ ! -f /certificates/hittps.pem ]; then
-    echo 'No certificate for hittps found, creating self signed certificate'
-    openssl req -x509 -newkey rsa:4096 -keyout /certificates/hittps_key.pem -out /certificates/hittps.pem \
+# TODO: Check that has certificate has not expired
+if [[ ! -f hittps.pem || ! -f hittps_key.pem || ! -f hittps.pfx ]]; then
+    echo 'Certificate data for hittps is not complete, creating self signed certificate'
+    
+    # Clear directory
+    rm -rf /certificates
+    mkdir /certificates
+    cd /certificates
+    
+    openssl req -x509 -newkey rsa:4096 -keyout hittps_key.pem -out hittps.pem \
         -sha256 -days 365 -nodes -subj '/CN=hittps'
-    openssl pkcs12 -export -out /certificates/hittps.pfx -inkey /certificates/hittps_key.pem \
-        -in /certificates/hittps.pem -password pass:hittps
+    openssl pkcs12 -export -out hittps.pfx -inkey hittps_key.pem \
+        -in hittps.pem -password pass:hittps
 else
-    echo 'Certificate already exists'
+    echo 'Certificate data for hittps is complete'
 fi

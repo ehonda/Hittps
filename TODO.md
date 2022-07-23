@@ -1,6 +1,13 @@
 # TODO
 
+* Improve init scripts
+  * Only use options that make sense for the script
+  * Don't use bash if it isn't necessary
+  * Better structure
+  * Write tests for the scripts
 * Use `--no-cache` for `apk add`
+  * Cerenkov ✅
+  * Certificator ✅
 * Trust `Hittps` cert from `Consumer` ✅
 * init container to set up certificates ✅
 * Make init container recreate invalid certificates (e.g. if expired)
