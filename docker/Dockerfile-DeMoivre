@@ -1,0 +1,15 @@
+FROM alpine
+
+# TODO: Do we need bash?
+RUN apk --no-cache add \
+    shunit2 \
+    bash
+
+COPY ./DeMoivre/tests ./tests
+
+# TODO: Use another user
+#USER shunit2
+ENV SHUNIT_COLOR=always
+#ENTRYPOINT [ "/bin/bash", "-c" ]
+#CMD [ "/tests/none" ]
+ENTRYPOINT [ "/bin/bash", "-s", "-" ]

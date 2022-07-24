@@ -1,0 +1,11 @@
+#!/bin/bash
+
+testFailing() {
+    echo failing
+    assertEquals 0 1
+}
+
+echo source
+
+# shellcheck source=/dev/null
+. shunit2
