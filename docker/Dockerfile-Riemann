@@ -1,0 +1,9 @@
+FROM de-moivre
+
+USER root
+
+RUN apk --no-cache add \
+    openssl
+
+USER shunit2
+ENTRYPOINT [ "/bin/entrypoint" ]

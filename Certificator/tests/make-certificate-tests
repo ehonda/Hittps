@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# TODO: Setup, Teardown, other tests
+
+# Certificate files should be created for empty directoy
+testCertificateFilesAreCreated() {
+    # TODO: Make shellcheck be able to follow this
+    # shellcheck source=/dev/null
+    makeCertificate
+
+    assertTrue "hittps.pem should be created" "[ -f ~/certificates/hittps.pem ]"
+}
+
+# TODO: Find a way to redirect this together with the test script
+makeCertificate() {
+    #set -euo pipefail
+    #IFS=$'\n\t'
+
+    set -e
+    
+    # TODO: Test if dir exists
+    mkdir ~/certificates
+    cd ~/certificates
+
+    # Check that certificate exists
+    # TODO: Check that has certificate has not expired
+    if [[ ! -f hittps.pem || ! -f hittps_key.pem || ! -f hittps.pfx ]]; then
+        echo 'Certificate data for hittps is not complete, creating self signed certificate'
+        
+        # Clear directory
+        rm -rf ~/certificates
+        mkdir ~/certificates
+        cd ~/certificates
+        
+        openssl req -x509 -newkey rsa:4096 -keyout hittps_key.pem -out hittps.pem \
+            -sha256 -days 365 -nodes -subj '/CN=hittps'
+        openssl pkcs12 -export -out hittps.pfx -inkey hittps_key.pem \
+            -in hittps.pem -password pass:hittps
+    else
+        echo 'Certificate data for hittps is complete'
+    fi
+
+    set +e
+}
