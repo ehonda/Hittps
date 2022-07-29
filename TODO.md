@@ -4,9 +4,8 @@
   * <https://github.com/hadolint/hadolint>
 * Use `shunit2` to unit test init scripts
   * <https://github.com/kward/shunit2>
-  * POC works: `d container run --rm -v "$(pwd)"/tests:/tests de-moivre /tests/failing` ✅
-  * Better: Make tool usable like hadolint: `docker run --rm -i hadolint/hadolint < Dockerfile` ⚠
-    * Broken atm, tests aren't discovered. __Why?__
+  * Build base image to base other test images upon
+  * Use suitable way to create temp file to buffer stdin input
 * Improve init scripts
   * Only use options that make sense for the script
   * Don't use bash if it isn't necessary

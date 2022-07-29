@@ -1,0 +1,3 @@
+#!/bin/sh
+# TODO: Use suitable temp file
+cat - > /tests/from-stdin

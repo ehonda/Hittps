@@ -1,0 +1,3 @@
+#!/bin/sh
+./bin/read-stdin
+shunit2 /tests/from-stdin

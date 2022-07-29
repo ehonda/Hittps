@@ -1,0 +1,9 @@
+#!/bin/sh
+
+testFailing() {
+    assertEquals 0 1
+}
+
+testSucceeding() {
+    assertEquals 0 0
+}

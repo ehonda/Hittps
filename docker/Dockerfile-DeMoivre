@@ -5,11 +5,12 @@ RUN apk --no-cache add \
     shunit2 \
     bash
 
-COPY ./DeMoivre/tests ./tests
+COPY ./DeMoivre ./bin
+RUN mkdir tests \
+    && adduser -D shunit2 \
+    && chown shunit2 tests \
+    && chmod +x /bin/read-stdin /bin/entrypoint
 
-# TODO: Use another user
-#USER shunit2
 ENV SHUNIT_COLOR=always
-#ENTRYPOINT [ "/bin/bash", "-c" ]
-#CMD [ "/tests/none" ]
-ENTRYPOINT [ "/bin/bash", "-s", "-" ]
+USER shunit2
+ENTRYPOINT exec /bin/entrypoint
