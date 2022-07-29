@@ -5,10 +5,11 @@
 # Certificate files should be created for empty directoy
 testCertificateFilesAreCreated() {
     # TODO: Make shellcheck be able to follow this
-    # shellcheck source=/dev/null
     makeCertificate
 
     assertTrue "hittps.pem should be created" "[ -f ~/certificates/hittps.pem ]"
+    assertTrue "hittps_key.pem should be created" "[ -f ~/certificates/hittps_key.pem ]"
+    assertTrue "hittps.pfx should be created" "[ -f ~/certificates/hittps.pfx ]"
 }
 
 # TODO: Find a way to redirect this together with the test script
